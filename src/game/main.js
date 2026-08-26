@@ -1810,8 +1810,8 @@ function render() {
     ctx.textBaseline = "middle";
 
     const centerY = canvasHeight / 2;
-    ctx.fillText("Press F11 to enter fullscreen", canvasWidth / 2, centerY - fontSize * 0.8);
-    ctx.fillText("to continue playing", canvasWidth / 2, centerY + fontSize * 0.2);
+    ctx.fillText("Paused", canvasWidth / 2, centerY - fontSize * 0.8);
+    ctx.fillText("Click to continue", canvasWidth / 2, centerY + fontSize * 0.2);
 
     ctx.restore();
     return;
@@ -2102,6 +2102,7 @@ window.addEventListener("pointercancel", () => {
 
 function launchBallFromInput(eventRepeat = false) {
   const isGameActive = playPage?.classList.contains("is-active");
+  if (!isBallSupported()) return;
   if (isDrawLimitReached()) return;
 
   const canLaunchBall = shouldHandleSpacebarAction({
@@ -2133,6 +2134,68 @@ function launchBallFromInput(eventRepeat = false) {
       break;
     }
   }
+}
+
+function distanceToSegment(point, start, end) {
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+  const lengthSquared = dx * dx + dy * dy;
+  if (lengthSquared === 0) {
+    return Math.hypot(point.x - start.x, point.y - start.y);
+  }
+
+  const projection = Math.max(
+    0,
+    Math.min(1, ((point.x - start.x) * dx + (point.y - start.y) * dy) / lengthSquared)
+  );
+  const closestX = start.x + projection * dx;
+  const closestY = start.y + projection * dy;
+  return Math.hypot(point.x - closestX, point.y - closestY);
+}
+
+function isBallSupported() {
+  const ball = gameObjects.find((object) => object instanceof Ball && object.physicsBody);
+  if (!ball) return false;
+
+  const position = ball.physicsBody.getPosition();
+  const velocity = ball.physicsBody.getLinearVelocity();
+  const radius =
+    ball.physicalRadius ?? resolveCircleRadius(ball.radius, Math.min(canvasWidth, canvasHeight));
+  if (velocity.y < -2) return false;
+
+  const floorY = (canvas?.clientHeight || canvasHeight || 0) - 24;
+  if (difficultyRules.hasFloor && position.y + radius >= floorY - 4) {
+    return true;
+  }
+
+  for (const object of gameObjects) {
+    if (!(object instanceof Platform) || !object.physicsBody) continue;
+    const platformX = object.nx * canvasWidth;
+    const platformY = object.ny * canvasHeight;
+    const width = object.width > 1 ? object.width : object.width * canvasWidth;
+    const height = object.height > 1 ? object.height : object.height * canvasHeight;
+    const withinPlatform =
+      position.x + radius >= platformX - width / 2 && position.x - radius <= platformX + width / 2;
+    const onTop = position.y + radius >= platformY - height / 2 - 4 && position.y <= platformY;
+    if (withinPlatform && onTop) return true;
+  }
+
+  for (const stroke of physicsStrokes) {
+    if (!stroke.physicsBody || !Array.isArray(stroke.points)) continue;
+    for (let index = 1; index < stroke.points.length; index += 1) {
+      const start = stroke.points[index - 1];
+      const end = stroke.points[index];
+      const distance = distanceToSegment(
+        { x: position.x, y: position.y },
+        { x: start.x, y: start.y },
+        { x: end.x, y: end.y }
+      );
+      const segmentY = Math.max(start.y, end.y);
+      if (distance <= radius + 5 && segmentY >= position.y - 2) return true;
+    }
+  }
+
+  return false;
 }
 
 mobileLaunchButton?.addEventListener("pointerdown", (event) => {
