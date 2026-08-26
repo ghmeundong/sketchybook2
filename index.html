@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Sketchybook2 themed hand-drawn puzzle game." />
+    <meta name="theme-color" content="#f5ebcf" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Sketchybook2" />
+    <link rel="icon" type="image/x-icon" href="/sketchybook2/favicon.ico" />
+    <link rel="manifest" href="/sketchybook2/manifest.json" />
+    <title>Sketchybook2</title>
+    <style>
+      html {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      #page-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background: #f5ebcf;
+        color: #3c2f1f;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        text-align: center;
+        z-index: 9999;
+      }
+      #page-content {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 160ms ease;
+      }
+      html.js-ready #page-content {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+    <script type="module" crossorigin src="/sketchybook2/assets/main-IAGLzIIs.js"></script>
+    <link rel="stylesheet" crossorigin href="/sketchybook2/assets/main-Bo_jL9sX.css">
+  </head>
+  <body>
+    <div id="page-loader">Loading Sketchybook…</div>
+    <main id="page-content">
+      <div id="book" class="book">
+        <div class="page page-start is-active">
+          <section class="start-screen" aria-label="Game start screen">
+            <div class="start-screen-login">
+              <div id="google-signin" class="google-signin-container"></div>
+            </div>
+            <div class="start-screen-actions">
+              <div class="start-screen-tools">
+                <button
+                  class="settings-toggle game-exit-btn"
+                  type="button"
+                  data-settings-toggle
+                  aria-expanded="false"
+                  aria-controls="start-settings-panel"
+                  aria-label="Open settings"
+                ></button>
+                <button
+                  class="help-toggle"
+                  type="button"
+                  data-help-toggle
+                  aria-expanded="false"
+                  aria-controls="start-help-panel"
+                  aria-label="How to play"
+                >?</button>
+              </div>
+              <div class="settings-panel" id="start-settings-panel" hidden>
+                <p class="settings-panel-title">Settings</p>
+                <div class="settings-option">
+                  <div class="settings-option-text">
+                    <strong>Challenge mode:</strong>
+                    <span id="challenge-mode-status">draw only one line <br />no clicks <br />no floor</span>
+                  </div>
+                  <button
+                    class="settings-toggle-switch"
+                    type="button"
+                    data-challenge-mode-toggle
+                    aria-pressed="false"
+                    id="challenge-mode-toggle-btn"
+                  >
+                    <span class="settings-toggle-switch-thumb"></span>
+                  </button>
+                </div>
+                <button class="settings-panel-close" type="button" data-settings-close>
+                  Close
+                </button>
+              </div>
+              <div class="help-panel" id="start-help-panel" hidden>
+                <p class="help-panel-title">How to play</p>
+                <p><strong>Click:</strong> Launch the ball</p>
+                <p><strong>Spacebar:</strong> Launch the ball</p>
+                <p><strong>Drag:</strong> Draw a line to guide the ball</p>
+                <p><strong>R:</strong> Retry the stage</p>
+              </div>
+            </div>
+            <div class="title-stack">
+              <h1 class="brand-title">SKETCHYBOOK</h1>
+              <!-- Difficulty Selector -->
+              <div class="difficulty-selector" id="difficulty-selector">
+                <button
+                  class="difficulty-nav-btn difficulty-prev-btn"
+                  type="button"
+                  data-difficulty-prev
+                  aria-label="Previous difficulty"
+                >
+                  &lt;
+                </button>
+                <div class="difficulty-display">
+                  <span class="difficulty-name" id="difficulty-name">Normal</span>
+                </div>
+                <button
+                  class="difficulty-nav-btn difficulty-next-btn"
+                  type="button"
+                  data-difficulty-next
+                  aria-label="Next difficulty"
+                >
+                  &gt;
+                </button>
+              </div>
+              <p class="difficulty-description" id="difficulty-description" aria-live="polite">
+                Floor on / easy draw / no challenge
+              </p>
+              <button class="game-title" type="button" data-start-button>Loading...</button>
+            </div>
+          </section>
+        </div>
+
+        <div class="page page-selection">
+          <section class="selection-screen" aria-label="Game selection screen">
+            <button
+              class="game-exit-btn selection-exit-btn"
+              type="button"
+              data-back-home-button
+              aria-label="Back to start screen"
+            >
+              <span class="selection-back-button__icon" data-back-home-icon></span>
+            </button>
+            <div class="selection-help-actions">
+              <button
+                class="help-toggle"
+                type="button"
+                data-selection-help-toggle
+                aria-expanded="false"
+                aria-controls="selection-help-panel"
+                aria-label="How to play"
+              >?</button>
+              <div class="help-panel" id="selection-help-panel" hidden>
+                <p class="help-panel-title">How to play</p>
+                <p><strong>Click:</strong> Launch the ball</p>
+                <p><strong>Spacebar:</strong> Launch the ball</p>
+                <p><strong>Drag:</strong> Draw a line to guide the ball</p>
+                <p><strong>R:</strong> Retry the stage</p>
+              </div>
+            </div>
+            <h1 class="brand-title selection-screen-title">SKETCHYBOOK</h1>
+            <div class="selection-stage-shell">
+              <button class="selection-nav-btn selection-nav-btn--prev" type="button" data-stage-page="prev" aria-label="Show previous stages"></button>
+              <div class="selection-grid" aria-label="Stage selection grid">
+                <button class="stage-card" type="button" data-stage="1" aria-label="Stage 1">Stage 1</button>
+                <button class="stage-card" type="button" data-stage="2" aria-label="Stage 2">Stage 2</button>
+                <button class="stage-card" type="button" data-stage="3" aria-label="Stage 3">Stage 3</button>
+                <button class="stage-card" type="button" data-stage="4" aria-label="Stage 4">Stage 4</button>
+                <button class="stage-card" type="button" data-stage="5" aria-label="Stage 5">Stage 5</button>
+                <button class="stage-card" type="button" data-stage="6" aria-label="Stage 6">Stage 6</button>
+                <button class="stage-card" type="button" data-stage="7" aria-label="Stage 7">Stage 7</button>
+                <button class="stage-card" type="button" data-stage="8" aria-label="Stage 8">Stage 8</button>
+                <button class="stage-card" type="button" data-stage="9" aria-label="Stage 9">Stage 9</button>
+                <button class="stage-card" type="button" data-stage="10" aria-label="Stage 10">Stage 10</button>
+                <button class="stage-card" type="button" data-stage="11" aria-label="Stage 11">Stage 11</button>
+                <button class="stage-card" type="button" data-stage="12" aria-label="Stage 12">Stage 12</button>
+                <button class="stage-card" type="button" data-stage="13" aria-label="Stage 13">Stage 13</button>
+                <button class="stage-card" type="button" data-stage="14" aria-label="Stage 14">Stage 14</button>
+                <button class="stage-card" type="button" data-stage="15" aria-label="Stage 15">Stage 15</button>
+                <button class="stage-card" type="button" data-stage="16" aria-label="Stage 16">Stage 16</button>
+                <button class="stage-card" type="button" data-stage="17" aria-label="Stage 17">Stage 17</button>
+                <button class="stage-card" type="button" data-stage="18" aria-label="Stage 18">Stage 18</button>
+              </div>
+              <button class="selection-nav-btn selection-nav-btn--next" type="button" data-stage-page="next" aria-label="Show next stages"></button>
+            </div>
+          </section>
+        </div>
+
+        <div class="page page-play">
+          <div class="game-board" id="game-board">
+            <div class="draw-limit-progress" id="draw-limit-progress" aria-live="polite" aria-label="Draw limit progress">
+              <canvas id="draw-limit-progress-track-canvas"></canvas>
+              <canvas id="draw-limit-progress-fill-canvas"></canvas>
+            </div>
+            <div class="game-grid"></div>
+            <canvas id="game-canvas"></canvas>
+            <button
+              class="mobile-launch-btn"
+              type="button"
+              data-mobile-launch
+              aria-label="Launch ball"
+            >
+              <span class="mobile-launch-mark" aria-hidden="true">
+                <span class="mobile-launch-trail"></span>
+                <span class="mobile-launch-ball"></span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </body>
+</html>

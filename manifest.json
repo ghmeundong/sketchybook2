@@ -1,0 +1,18 @@
+{
+  "name": "Sketchybook2",
+  "short_name": "Sketchybook2",
+  "description": "A hand-drawn style puzzle game",
+  "start_url": "/sketchybook2/",
+  "scope": "/sketchybook2/",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "theme_color": "#f5ebcf",
+  "background_color": "#f5ebcf",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
