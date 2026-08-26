@@ -247,6 +247,14 @@
   right: clamp(0.75rem, 2vw, 1.25rem);
 }
 
+.selection-screen-settings .settings-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: max-content;
+  min-width: 12rem;
+}
+
 .selection-screen-login {
   left: clamp(0.75rem, 2vw, 1.25rem);
 }
