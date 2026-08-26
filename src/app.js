@@ -28,7 +28,7 @@ const difficultyDescription = document.getElementById("difficulty-description");
 const body = document.body;
 const pageLoader = document.getElementById("page-loader");
 
-const initialTitle = titleText?.textContent?.trim() || "SKETCHYBOOK";
+const initialTitle = titleText?.textContent?.trim() || "SKETCHYBOOK2";
 let backgroundLoaded = false;
 let pageLoadComplete = false;
 
@@ -332,12 +332,12 @@ bgImage.onload = () => {
   body.style.backgroundPosition = "center";
   body.style.backgroundRepeat = "no-repeat";
   body.style.backgroundAttachment = "fixed";
-  setLoaderText("Loading Sketchybook…");
+  setLoaderText("Loading Sketchybook2…");
   maybeRevealStartPage();
 };
 bgImage.onerror = () => {
   backgroundLoaded = true;
-  setLoaderText("Loading Sketchybook…");
+  setLoaderText("Loading Sketchybook2…");
   maybeRevealStartPage();
 };
 

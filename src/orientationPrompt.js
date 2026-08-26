@@ -40,7 +40,7 @@ function createPrompt() {
       <p class="orientation-prompt-eyebrow">Mobile mode</p>
       <h2 class="orientation-prompt-title">Play in landscape</h2>
       <p class="orientation-prompt-body">
-        Sketchybook is designed for a wider screen. Enter landscape mode to continue.
+        Sketchybook2 is designed for a wider screen. Enter landscape mode to continue.
       </p>
       <div class="orientation-prompt-icon" aria-hidden="true">
         <span class="orientation-prompt-device"></span>
