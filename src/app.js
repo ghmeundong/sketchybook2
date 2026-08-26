@@ -13,6 +13,7 @@ import {
 } from "./game/difficultyLevels.js";
 
 const startTitle = document.querySelector("[data-start-button]");
+const levelContinueButton = document.querySelector("[data-level-continue]");
 const titleText = document.querySelector(".page-start .brand-title");
 const settingsToggle = document.querySelector("[data-settings-toggle]");
 const challengeModeToggle = document.querySelector("[data-challenge-mode-toggle]");
@@ -225,7 +226,7 @@ function createInsaneStartWarningModal() {
   confirmBtn.textContent = "Continue";
   confirmBtn.addEventListener("click", async () => {
     modal.remove();
-    await launchGameFromStart();
+    window.dispatchEvent(new Event("sketchybook:level-confirmed"));
   });
 
   actions.appendChild(cancelBtn);
@@ -470,11 +471,18 @@ if (startTitle) {
   startTitle.addEventListener("click", (event) => {
     event.preventDefault();
 
-    if (selectedDifficulty === DIFFICULTY_LEVELS.INSANE) {
-      showInsaneStartWarningModal();
+    launchGameFromStart();
+  });
+}
+
+if (levelContinueButton) {
+  levelContinueButton.addEventListener("click", (event) => {
+    if (selectedDifficulty !== DIFFICULTY_LEVELS.INSANE) {
       return;
     }
 
-    launchGameFromStart();
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    showInsaneStartWarningModal();
   });
 }

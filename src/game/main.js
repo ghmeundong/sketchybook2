@@ -343,6 +343,11 @@ if (levelContinueButton) {
   });
 }
 
+window.addEventListener("sketchybook:level-confirmed", () => {
+  setActivePage(selectionPage);
+  updateStageSelectionPage();
+});
+
 refreshStageSelectionButtons();
 
 function lockLandscapeOrientation() {
