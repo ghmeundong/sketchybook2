@@ -13,7 +13,7 @@ import {
 } from "./game/difficultyLevels.js";
 
 const startTitle = document.querySelector("[data-start-button]");
-const titleText = document.querySelector(".brand-title");
+const titleText = document.querySelector(".page-start .brand-title");
 const settingsToggle = document.querySelector("[data-settings-toggle]");
 const challengeModeToggle = document.querySelector("[data-challenge-mode-toggle]");
 const challengeModeStatus = document.getElementById("challenge-mode-status");

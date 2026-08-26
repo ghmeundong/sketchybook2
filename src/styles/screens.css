@@ -236,6 +236,32 @@
   gap: 0.5rem;
 }
 
+.selection-screen-login,
+.selection-screen-settings {
+  position: absolute;
+  top: clamp(0.75rem, 2vw, 1.25rem);
+  z-index: 3;
+}
+
+.selection-screen-settings {
+  right: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.selection-screen-login {
+  left: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.selection-difficulty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -1rem;
+}
+
+.level-selection-continue {
+  margin-top: clamp(1rem, 2.5vh, 1.75rem);
+}
+
 .settings-panel-title {
   margin: 0;
   font-size: 0.95rem;
@@ -619,11 +645,16 @@
 }
 
 .title-stack {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(2rem, 9vh, 5.5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(0.8rem, 2vw, 1.1rem);
-  margin-top: clamp(1.5rem, 5vh, 3.5rem);
+  gap: clamp(0.35rem, 1vw, 0.6rem);
+  margin: 0;
+  transform: translateX(-50%);
+  z-index: 2;
 }
 
 /* Difficulty Selector Styles */
@@ -632,7 +663,7 @@
   align-items: center;
   justify-content: center;
   gap: clamp(0.8rem, 2vw, 1.2rem);
-  margin: clamp(1rem, 2.5vh, 1.5rem) 0;
+  margin: clamp(0.25rem, 1vh, 0.6rem) 0;
 }
 
 .difficulty-selector button {
@@ -699,7 +730,7 @@
   cursor: pointer;
   user-select: none;
   font-weight: 700;
-  margin-top: clamp(2.2rem, 6vh, 4rem);
+  margin-top: clamp(0.35rem, 1vh, 0.75rem);
   background: transparent;
   border: none;
   color: inherit;
@@ -707,7 +738,7 @@
 
 @media (width <= 768px) {
   main {
-    padding: 1rem 1rem 0;
+    padding: 0;
   }
 
   .start-screen,
@@ -723,7 +754,7 @@
 /* Mobile Landscape Optimization */
 @media (width <= 1024px) and (orientation: landscape) {
   main {
-    padding: 0.4rem;
+    padding: 0;
   }
 
   .start-screen,

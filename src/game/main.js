@@ -67,6 +67,9 @@ const drawLimitProgress = document.getElementById("draw-limit-progress");
 const drawLimitProgressTrackCanvas = document.getElementById("draw-limit-progress-track-canvas");
 const drawLimitProgressFillCanvas = document.getElementById("draw-limit-progress-fill-canvas");
 const selectionPage = document.querySelector(".page-selection");
+const levelSelectionPage = document.querySelector(".page-level-selection");
+const levelContinueButton = document.querySelector("[data-level-continue]");
+const levelBackHomeButton = document.querySelector("[data-level-back-home]");
 let drawLimitProgressTrackDrawn = false;
 const playPage = document.querySelector(".page-play");
 const startPage = document.querySelector(".page-start");
@@ -323,6 +326,23 @@ if (backHomeButton) {
   });
 }
 
+if (levelBackHomeButton) {
+  levelBackHomeButton.appendChild(
+    createActionIconCanvas("exit", { w: 60, h: 48, strokeWidth: 2.5 })
+  );
+  levelBackHomeButton.addEventListener("click", () => {
+    setActivePage(startPage);
+    window.dispatchEvent(new Event("sketchybook:show-start"));
+  });
+}
+
+if (levelContinueButton) {
+  levelContinueButton.addEventListener("click", () => {
+    setActivePage(selectionPage);
+    updateStageSelectionPage();
+  });
+}
+
 refreshStageSelectionButtons();
 
 function lockLandscapeOrientation() {
@@ -405,7 +425,7 @@ function updateStageUrl(stageNumber = null) {
 }
 
 function setActivePage(page) {
-  [startPage, selectionPage, playPage].forEach((item) => {
+  [startPage, levelSelectionPage, selectionPage, playPage].forEach((item) => {
     if (!item) return;
     item.classList.toggle("is-active", item === page);
   });
@@ -605,7 +625,7 @@ window.addEventListener("sketchybook:start-game", async (event) => {
   }
 
   await tryEnterFullscreen();
-  setActivePage(selectionPage);
+  setActivePage(levelSelectionPage);
   updateStageSelectionPage();
 });
 

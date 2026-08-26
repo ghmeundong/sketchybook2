@@ -66,7 +66,23 @@
             <div class="start-screen-login">
               <div id="google-signin" class="google-signin-container"></div>
             </div>
-            <div class="start-screen-actions">
+            <div class="title-stack">
+              <button class="game-title" type="button" data-start-button>Loading...</button>
+            </div>
+          </section>
+        </div>
+
+        <div class="page page-level-selection">
+          <section class="selection-screen level-selection-screen" aria-label="Level selection screen">
+            <button
+              class="game-exit-btn selection-exit-btn"
+              type="button"
+              data-level-back-home
+              aria-label="Back to start screen"
+            >
+              <span class="selection-back-button__icon" data-level-back-home-icon></span>
+            </button>
+            <div class="selection-screen-settings">
               <div class="start-screen-tools">
                 <button
                   class="settings-toggle game-exit-btn"
@@ -76,14 +92,6 @@
                   aria-controls="start-settings-panel"
                   aria-label="Open settings"
                 ></button>
-                <button
-                  class="help-toggle"
-                  type="button"
-                  data-help-toggle
-                  aria-expanded="false"
-                  aria-controls="start-help-panel"
-                  aria-label="How to play"
-                >?</button>
               </div>
               <div class="settings-panel" id="start-settings-panel" hidden>
                 <p class="settings-panel-title">Settings</p>
@@ -106,42 +114,23 @@
                   Close
                 </button>
               </div>
-              <div class="help-panel" id="start-help-panel" hidden>
-                <p class="help-panel-title">How to play</p>
-                <p><strong>Click:</strong> Launch the ball</p>
-                <p><strong>Spacebar:</strong> Launch the ball</p>
-                <p><strong>Drag:</strong> Draw a line to guide the ball</p>
-                <p><strong>R:</strong> Retry the stage</p>
-              </div>
             </div>
-            <div class="title-stack">
-              <!-- Difficulty Selector -->
+            <h1 class="brand-title selection-screen-title">Choose a level</h1>
+            <div class="selection-difficulty">
               <div class="difficulty-selector" id="difficulty-selector">
-                <button
-                  class="difficulty-nav-btn difficulty-prev-btn"
-                  type="button"
-                  data-difficulty-prev
-                  aria-label="Previous difficulty"
-                >
-                  &lt;
-                </button>
+                <button class="difficulty-nav-btn difficulty-prev-btn" type="button" data-difficulty-prev aria-label="Previous difficulty">&lt;</button>
                 <div class="difficulty-display">
                   <span class="difficulty-name" id="difficulty-name">Normal</span>
                 </div>
-                <button
-                  class="difficulty-nav-btn difficulty-next-btn"
-                  type="button"
-                  data-difficulty-next
-                  aria-label="Next difficulty"
-                >
-                  &gt;
-                </button>
+                <button class="difficulty-nav-btn difficulty-next-btn" type="button" data-difficulty-next aria-label="Next difficulty">&gt;</button>
               </div>
               <p class="difficulty-description" id="difficulty-description" aria-live="polite">
                 Floor on / easy draw / no challenge
               </p>
-              <button class="game-title" type="button" data-start-button>Loading...</button>
             </div>
+            <button class="level-selection-continue game-title" type="button" data-level-continue>
+              Choose a stage
+            </button>
           </section>
         </div>
 
@@ -172,7 +161,7 @@
                 <p><strong>R:</strong> Retry the stage</p>
               </div>
             </div>
-            <h1 class="brand-title selection-screen-title">SKETCHYBOOK2</h1>
+            <h1 class="brand-title selection-screen-title">Select a stage</h1>
             <div class="selection-stage-shell">
               <button class="selection-nav-btn selection-nav-btn--prev" type="button" data-stage-page="prev" aria-label="Show previous stages"></button>
               <div class="selection-grid" aria-label="Stage selection grid">
