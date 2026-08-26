@@ -15,16 +15,26 @@ Do not rewrite or delete the V1 history. Keep `v1.0.0` as the archive reference.
 
 ## First infrastructure task
 
+V2 backend infrastructure is connected and deployed:
+
+- Worker: `sketchybook2-backend`
+- Worker URL: `https://sketchybook2-backend.ghmeundong.workers.dev`
+- D1 database: `sketchybook2`
+- D1 database ID: `0645a0f9-2208-46d3-a720-daa37365ebb2`
+- Google OAuth Client ID: configured in `backend/wrangler.toml`
+- CORS: restricted to the V2 GitHub Pages origin, localhost, and Codespaces development origins
+- Google login and authenticated progress save/load: verified
+
 Create and connect V2 backend services before changing the frontend data flow.
 
-1. Create a new Cloudflare Worker named `sketchybook2-backend`.
-2. Create a new Cloudflare D1 database for V2, preferably named `sketchybook2`.
-3. Bind the new D1 database to the new Worker.
-4. Create or configure V2 Google OAuth credentials.
-5. Register the V2 GitHub Pages origin and callback URLs in Google OAuth.
-6. Deploy the Worker and record its URL.
-7. Replace the V1 service identifiers in `backend/wrangler.toml` and `src/services/api.js`.
-8. Restrict Worker CORS to the V2 frontend origin after local development is verified.
+1. ~~Create a new Cloudflare Worker named `sketchybook2-backend`.~~ Complete.
+2. ~~Create a new Cloudflare D1 database for V2, preferably named `sketchybook2`.~~ Complete.
+3. ~~Bind the new D1 database to the new Worker.~~ Complete.
+4. ~~Create or configure V2 Google OAuth credentials.~~ Complete and verified.
+5. ~~Register the V2 GitHub Pages origin and callback URLs in Google OAuth.~~ Login verified.
+6. ~~Deploy the Worker and record its URL.~~ Complete.
+7. ~~Replace the V1 service identifiers in `backend/wrangler.toml` and `src/services/api.js`.~~ Complete.
+8. ~~Restrict Worker CORS to the V2 frontend origin after local development is verified.~~ Complete.
 
 The V1 Worker and V1 D1 database must remain separate. Never point V2 at the V1 database.
 
@@ -35,6 +45,7 @@ The V1 Worker and V1 D1 database must remain separate. Never point V2 at the V1 
 - `backend/wrangler.toml` contains the V1 Google client identifier.
 - `src/services/api.js` falls back to the V1 Worker URL on GitHub Pages.
 - `.env` contains local Cloudflare and Google settings and is ignored by Git.
+- `.env.example` contains sanitized local configuration placeholders.
 
 Do not commit `.env`, API tokens, client secrets, or private keys. Add a sanitized `.env.example` instead. Any credential that has been exposed outside the local machine must be revoked and reissued.
 
@@ -82,4 +93,4 @@ npm run deploy
 
 ## Handoff starting point
 
-The next coding session should begin in `sketchybook2` on branch `v2` by creating the V2 backend resources and replacing the V1 service configuration. Once the new Worker URL, D1 ID, and OAuth values are available, update configuration through environment variables or deployment secrets, then verify health and authenticated progress sync before starting the large UI rewrite.
+The next coding session should start the V2 UI and chapter data-model work. Rotate any credentials that were exposed during setup before further deployment.

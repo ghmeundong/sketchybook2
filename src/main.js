@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
 
 // --- Google Identity Services integration ---
 // Public client ID (issued from Google Cloud Console)
-const GOOGLE_CLIENT_ID = "529097378346-95i01gu1nmv8qcfrf459j0taep3t7vm6.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID = "429444771801-kp06n87vmnc8a9q3lrgaq6ssb0lumcoi.apps.googleusercontent.com";
 
 function renderAuthStatus(message, isError = false) {
   const container = document.getElementById("google-signin");

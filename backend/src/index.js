@@ -1,8 +1,19 @@
 const CORS_HEADERS = {
-  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
   "Access-Control-Allow-Headers": "Authorization, Content-Type",
 };
+
+const ALLOWED_ORIGINS = new Set(["http://localhost:5173", "https://ghmeundong.github.io"]);
+
+function getCorsHeaders(request) {
+  const origin = request?.headers.get("Origin");
+  const headers = { ...CORS_HEADERS };
+  if (origin && (ALLOWED_ORIGINS.has(origin) || origin.endsWith(".github.dev"))) {
+    headers["Access-Control-Allow-Origin"] = origin;
+    headers.Vary = "Origin";
+  }
+  return headers;
+}
 
 // 스케치북 컨셉에 맞춘 인메모리 저장소
 let sketchbookMemory = {
@@ -10,18 +21,18 @@ let sketchbookMemory = {
   vector: null,
 };
 
-function jsonResponse(body, status = 200) {
+function jsonResponse(body, status = 200, request) {
   return new Response(JSON.stringify(body), {
     status,
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
-      ...CORS_HEADERS,
+      ...getCorsHeaders(request),
     },
   });
 }
 
-function errorResponse(message, status = 500) {
-  return jsonResponse({ error: message }, status);
+function errorResponse(message, status = 500, request) {
+  return jsonResponse({ error: message }, status, request);
 }
 
 async function fetchSketchbook() {
@@ -42,22 +53,26 @@ async function saveSketchbook(payload) {
 async function handleSketchRequest(request, env) {
   if (request.method === "GET") {
     const book = await fetchSketchbook();
-    return jsonResponse({ imageData: book.imageData, vector: book.vector });
+    return jsonResponse({ imageData: book.imageData, vector: book.vector }, 200, request);
   }
 
   if (request.method === "POST") {
     const body = await request.json().catch(() => null);
     if (!body || (typeof body.imageData !== "string" && !Array.isArray(body.vector))) {
-      return errorResponse("Request body must include imageData string or vector array.", 400);
+      return errorResponse(
+        "Request body must include imageData string or vector array.",
+        400,
+        request
+      );
     }
 
     await saveSketchbook({ imageData: body.imageData, vector: body.vector });
-    return jsonResponse({ ok: true });
+    return jsonResponse({ ok: true }, 200, request);
   }
 
   return new Response(null, {
     status: 405,
-    headers: CORS_HEADERS,
+    headers: getCorsHeaders(request),
   });
 }
 
@@ -72,25 +87,25 @@ async function handleProgressRequest(request, env) {
   if (request.method === "OPTIONS") {
     return new Response(null, {
       status: 204,
-      headers: CORS_HEADERS,
+      headers: getCorsHeaders(request),
     });
   }
 
   const idToken = getBearerToken(request);
   if (!idToken) {
-    return jsonResponse({ error: "Unauthorized" }, 401);
+    return jsonResponse({ error: "Unauthorized" }, 401, request);
   }
 
   let payload;
   try {
     payload = await verifyIdToken(idToken, env);
   } catch (error) {
-    return jsonResponse({ error: "Invalid auth token." }, 401);
+    return jsonResponse({ error: "Invalid auth token." }, 401, request);
   }
 
   const userSub = payload.sub;
   if (!userSub) {
-    return jsonResponse({ error: "Invalid token payload." }, 401);
+    return jsonResponse({ error: "Invalid token payload." }, 401, request);
   }
 
   const url = new URL(request.url);
@@ -117,18 +132,22 @@ async function handleProgressRequest(request, env) {
       .bind(userSub, mode)
       .first();
 
-    return jsonResponse({
-      ok: true,
-      mode,
-      progress: row?.progress ?? null,
-      scores: row?.scores ? JSON.parse(row.scores) : {},
-    });
+    return jsonResponse(
+      {
+        ok: true,
+        mode,
+        progress: row?.progress ?? null,
+        scores: row?.scores ? JSON.parse(row.scores) : {},
+      },
+      200,
+      request
+    );
   }
 
   if (request.method !== "POST") {
     return new Response(null, {
       status: 405,
-      headers: CORS_HEADERS,
+      headers: getCorsHeaders(request),
     });
   }
 
@@ -139,7 +158,11 @@ async function handleProgressRequest(request, env) {
     typeof body.scores !== "object" ||
     body.scores === null
   ) {
-    return errorResponse("Request body must include progress number and scores object.", 400);
+    return errorResponse(
+      "Request body must include progress number and scores object.",
+      400,
+      request
+    );
   }
 
   // 기존 DB 데이터 조회 및 베스트 스코어 비교 병합
@@ -192,18 +215,22 @@ async function handleProgressRequest(request, env) {
     .bind(userSub, mode, finalProgress, scoresJson, now)
     .run();
 
-  return jsonResponse({ ok: true, mode });
+  return jsonResponse({ ok: true, mode }, 200, request);
 }
 
 async function handleRequest(request, env) {
   const url = new URL(request.url);
 
   if (url.pathname === "/api/health") {
-    return jsonResponse({
-      ok: true,
-      scope: "sketchybook-api",
-      timestamp: new Date().toISOString(),
-    });
+    return jsonResponse(
+      {
+        ok: true,
+        scope: "sketchybook-api",
+        timestamp: new Date().toISOString(),
+      },
+      200,
+      request
+    );
   }
 
   if (url.pathname === "/api/sketch") {
@@ -211,7 +238,7 @@ async function handleRequest(request, env) {
       return await handleSketchRequest(request, env);
     } catch (error) {
       console.error("[backend] handleSketchRequest error:", error);
-      return errorResponse(error.message || "Failed to handle sketchybook request.");
+      return errorResponse(error.message || "Failed to handle sketchybook request.", 500, request);
     }
   }
 
@@ -220,7 +247,7 @@ async function handleRequest(request, env) {
       return await handleProgressRequest(request, env);
     } catch (error) {
       console.error("[backend] handleProgressRequest error:", error);
-      return errorResponse(error.message || "Failed to handle progress request.");
+      return errorResponse(error.message || "Failed to handle progress request.", 500, request);
     }
   }
 
@@ -229,7 +256,7 @@ async function handleRequest(request, env) {
       return await handleAuthRequest(request, env);
     } catch (error) {
       console.error("[backend] handleAuthRequest error:", error);
-      return errorResponse(error.message || "Failed to handle auth request.");
+      return errorResponse(error.message || "Failed to handle auth request.", 500, request);
     }
   }
 
@@ -237,7 +264,7 @@ async function handleRequest(request, env) {
     status: 404,
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
-      ...CORS_HEADERS,
+      ...getCorsHeaders(request),
     },
   });
 }
@@ -247,7 +274,7 @@ export default {
     if (request.method === "OPTIONS") {
       return new Response(null, {
         status: 204,
-        headers: CORS_HEADERS,
+        headers: getCorsHeaders(request),
       });
     }
     return handleRequest(request, env);
@@ -264,13 +291,13 @@ function getGoogleClientSecret(env) {
 
 async function handleAuthRequest(request, env) {
   if (request.method !== "POST") {
-    return new Response(null, { status: 405, headers: CORS_HEADERS });
+    return new Response(null, { status: 405, headers: getCorsHeaders(request) });
   }
 
   const body = await request.json().catch(() => null);
   console.log("[backend] handleAuthRequest body:", body);
   if (!body || (typeof body.code !== "string" && typeof body.id_token !== "string")) {
-    return errorResponse("Request body must include code or id_token string.", 400);
+    return errorResponse("Request body must include code or id_token string.", 400, request);
   }
 
   let idToken;
@@ -308,7 +335,7 @@ async function handleAuthRequest(request, env) {
     user = { id, sub, email, name };
   }
 
-  return jsonResponse({ ok: true, user, id_token: idToken });
+  return jsonResponse({ ok: true, user, id_token: idToken }, 200, request);
 }
 
 async function exchangeCodeForIdToken(code, env) {
