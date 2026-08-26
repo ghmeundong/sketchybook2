@@ -155,6 +155,7 @@ npm run deploy          # Deploy to GitHub Pages
 - [**Deployment Guide**](docs/DEPLOYMENT.md) - How to deploy
 - [**Development Guide**](docs/DEVELOPMENT.md) - Dev environment setup
 - [**Game Objects**](docs/OBJECTS.md) - Game object documentation
+- [**Difficulty System Briefing**](docs/DIFFICULTY_SYSTEM_BRIEFING.md) - Difficulty system implementation details
 
 ---
 
