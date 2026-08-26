@@ -12,6 +12,20 @@
 
 .start-screen {
   position: relative;
+  isolation: isolate;
+  background-image:
+    linear-gradient(rgb(250 244 216 / 12%), rgb(250 244 216 / 12%)), var(--main-screen-image);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.start-screen::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgb(250 244 216 / 18%);
+  content: "";
 }
 
 .start-screen-login {
@@ -610,15 +624,6 @@
   align-items: center;
   gap: clamp(0.8rem, 2vw, 1.1rem);
   margin-top: clamp(1.5rem, 5vh, 3.5rem);
-}
-
-.main-screen-visual {
-  display: block;
-  width: min(78vw, 46rem);
-  max-height: min(35vh, 19rem);
-  object-fit: contain;
-  border-radius: 0.2rem;
-  box-shadow: 0 0.35rem 0.8rem rgb(79 59 36 / 16%);
 }
 
 /* Difficulty Selector Styles */

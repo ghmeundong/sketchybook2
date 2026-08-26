@@ -28,10 +28,10 @@ const difficultyNameDisplay = document.getElementById("difficulty-name");
 const difficultyDescription = document.getElementById("difficulty-description");
 const body = document.body;
 const pageLoader = document.getElementById("page-loader");
-const mainScreenVisualElement = document.querySelector("[data-main-screen-visual]");
+const startScreen = document.querySelector(".start-screen");
 
-if (mainScreenVisualElement) {
-  mainScreenVisualElement.src = mainScreenVisual;
+if (startScreen) {
+  startScreen.style.setProperty("--main-screen-image", `url(${mainScreenVisual})`);
 }
 
 const initialTitle = titleText?.textContent?.trim() || "SKETCHYBOOK2";
