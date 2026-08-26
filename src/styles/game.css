@@ -42,7 +42,7 @@
 }
 
 .page-play {
-  top: calc(-1 * var(--page-padding));
+  top: 0;
   left: 50%;
   width: 100vw;
   height: 100dvh;
