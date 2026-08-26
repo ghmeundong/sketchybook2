@@ -1,7 +1,7 @@
 import rough from "roughjs";
 import paperTexture from "./img/paper-texture.webp";
 import mainScreenVisual from "./img/sketchybook2.png";
-import { createActionIconCanvas } from "./game/ui/uiIcons.js";
+import { createActionIconSvg } from "./game/ui/uiIcons.js";
 import { initializeOrientationPrompt } from "./orientationPrompt.js";
 import { getChallengeModePreference, setChallengeModePreference } from "./game/challengeMode.js";
 import {
@@ -37,7 +37,7 @@ const startScreen = document.querySelector(".start-screen");
 ].forEach(([button, type]) => {
   if (!button) return;
   button.textContent = "";
-  button.appendChild(createActionIconCanvas(type, { w: 40, h: 32, strokeWidth: 2.4 }));
+  button.appendChild(createActionIconSvg(type, { w: 40, h: 32, strokeWidth: 2.4 }));
 });
 
 if (startScreen) {
@@ -368,9 +368,7 @@ if (document.readyState === "complete") {
 }
 
 if (settingsToggle && settingsPanel) {
-  settingsToggle.appendChild(
-    createActionIconCanvas("settings", { w: 48, h: 40, strokeWidth: 2.4 })
-  );
+  settingsToggle.appendChild(createActionIconSvg("settings", { w: 48, h: 40, strokeWidth: 2.4 }));
   settingsToggle.addEventListener("click", () => {
     setSettingsPanelVisible(settingsPanel.hidden);
   });

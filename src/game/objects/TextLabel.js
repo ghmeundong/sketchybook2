@@ -6,7 +6,7 @@ export class TextLabel {
     this.text = text || "";
     this.fontSize = typeof fontSize === "number" ? fontSize : 0.04;
     this.color = typeof color === "string" ? color : "#4f3b24";
-    this.fontFamily = typeof fontFamily === "string" ? fontFamily : "MyeongjoFont, serif";
+    this.fontFamily = typeof fontFamily === "string" ? fontFamily : '"Shantell Sans", cursive';
     this.texture = null;
     this.textureOffset = null;
     this._lastCanvasSize = null;
@@ -15,7 +15,7 @@ export class TextLabel {
   createTexture(canvasW, canvasH) {
     const fontPx =
       this.fontSize > 1 ? this.fontSize : Math.max(10, Math.round(this.fontSize * canvasH));
-    const fontFamily = this.fontFamily || "MyeongjoFont, serif";
+    const fontFamily = this.fontFamily || '"Shantell Sans", cursive';
     const lines = String(this.text)
       .split("\n")
       .map((line) => line.trim());

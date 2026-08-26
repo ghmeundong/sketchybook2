@@ -98,7 +98,7 @@
   border-radius: 50%;
   background: transparent;
   color: #4f3b24;
-  font-family: MyeongjoFont, serif;
+  font-family: "Shantell Sans", cursive;
   font-size: 1.1rem;
   font-weight: 800;
   line-height: 1;
@@ -139,7 +139,7 @@
   background: transparent;
   color: #4f3b24;
   border: none;
-  font-family: MyeongjoFont, serif;
+  font-family: "Shantell Sans", cursive;
   font-weight: 700;
   font-size: 0.95rem;
   text-transform: uppercase;
@@ -219,7 +219,7 @@
 
 .help-panel-title {
   margin-bottom: 0.2rem !important;
-  font-family: MyeongjoFont, serif;
+  font-family: "Shantell Sans", cursive;
   font-size: 0.95rem !important;
   font-weight: 800;
   text-align: center !important;
@@ -332,7 +332,7 @@
   height: 100%;
   padding: 0.6rem 0.75rem;
   color: #4f3b24;
-  font-family: MyeongjoFont, serif;
+  font-family: "Shantell Sans", cursive;
   font-size: 0.72rem;
   font-weight: 700;
   line-height: 1.2;
@@ -384,7 +384,7 @@
   z-index: 1;
   margin: 0 0 0.9rem;
   color: #4f3b24;
-  font-family: MyeongjoFont, serif;
+  font-family: "Shantell Sans", cursive;
   font-size: clamp(1.4rem, 2vw, 2rem);
   font-weight: 900;
 }
@@ -395,7 +395,7 @@
   z-index: 1;
   margin: 0 0 0.9rem;
   color: #4f3b24;
-  font-family: MyeongjoFont, serif;
+  font-family: "Shantell Sans", cursive;
   font-size: 0.92rem;
   line-height: 1.6;
   text-align: center;
@@ -420,7 +420,7 @@
   border: 2px solid #4f3b24;
   background: transparent;
   color: #4f3b24;
-  font-family: MyeongjoFont, serif;
+  font-family: "Shantell Sans", cursive;
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -595,6 +595,30 @@
   outline: none;
 }
 
+.stage-card:nth-child(3n + 1) {
+  font-variation-settings:
+    "BNCE" 30,
+    "INFM" 48,
+    "SPAC" -1,
+    "wght" 650;
+}
+
+.stage-card:nth-child(3n + 2) {
+  font-variation-settings:
+    "BNCE" 48,
+    "INFM" 58,
+    "SPAC" 1,
+    "wght" 650;
+}
+
+.stage-card:nth-child(3n) {
+  font-variation-settings:
+    "BNCE" 62,
+    "INFM" 64,
+    "SPAC" 0,
+    "wght" 650;
+}
+
 .stage-card.is-disabled,
 .stage-card:disabled {
   opacity: 0.45;
@@ -651,7 +675,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.2rem;
-  font-family: MyeongjoFont, serif;
+  font-family: "Shantell Sans", cursive;
   font-size: 0.95rem;
   font-weight: 700;
   color: #4f3b24;

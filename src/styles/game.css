@@ -102,7 +102,7 @@
     inset 0 -3px 0 rgb(17 26 58 / 26%),
     2px 3px 0 rgb(44 32 20 / 24%);
   color: rgb(255 248 232 / 94%);
-  font-family: MyeongjoFont, serif;
+  font-family: "Shantell Sans", cursive;
   font-size: clamp(1rem, 3vw, 1.35rem);
   font-weight: 800;
   letter-spacing: 0.08em;

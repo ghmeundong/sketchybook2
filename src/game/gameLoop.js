@@ -309,7 +309,7 @@ export function createGameLoop({
     if (!isFullscreen) {
       gameState.ctx.save();
       const fontSize = Math.max(24, Math.round(gameState.canvasHeight * 0.08));
-      gameState.ctx.font = `bold ${fontSize}px MyeongjoFont, serif`;
+      gameState.ctx.font = `bold ${fontSize}px "Shantell Sans", cursive`;
       gameState.ctx.fillStyle = "#4f3b24";
       gameState.ctx.textAlign = "center";
       gameState.ctx.textBaseline = "middle";

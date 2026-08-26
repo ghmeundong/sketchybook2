@@ -42,17 +42,15 @@ html {
   font-size: var(--body-font-size);
 }
 
-@font-face {
-  font-family: MyeongjoFont;
-  src: url("/font/sketchy-font/Sketchy-1jX4.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-
 body {
   min-height: 100dvh;
   font-size: 1rem;
-  font-family: MyeongjoFont, serif;
+  font-family: "Shantell Sans", cursive;
+  font-variation-settings:
+    "BNCE" 35,
+    "INFM" 45,
+    "SPAC" 0,
+    "wght" 400;
   color: #3c2f1f;
   background-color: #f5ebcf;
   position: relative;
@@ -71,7 +69,18 @@ h5,
 h6,
 span,
 div {
-  font-family: MyeongjoFont, serif;
+  font-family: "Shantell Sans", cursive;
+}
+
+button,
+h1,
+h2,
+h3 {
+  font-variation-settings:
+    "BNCE" 45,
+    "INFM" 55,
+    "SPAC" 0,
+    "wght" 650;
 }
 
 body::before {

@@ -196,7 +196,7 @@ export function renderStageScoreBadge(card, stageNumber) {
   badge.style.fontSize = "0.95rem";
   badge.style.fontWeight = "700";
   badge.style.color = "#4f3b24";
-  badge.style.fontFamily = "MyeongjoFont, serif";
+  badge.style.fontFamily = '"Shantell Sans", cursive';
 
   badge.appendChild(createRoughStarCanvas(score, { size: 14, gap: 3 }));
 }
