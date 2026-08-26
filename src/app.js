@@ -1,5 +1,6 @@
 import rough from "roughjs";
 import paperTexture from "./img/paper-texture.webp";
+import mainScreenVisual from "./img/sketchybook2.png";
 import { createActionIconCanvas } from "./game/ui/uiIcons.js";
 import { initializeOrientationPrompt } from "./orientationPrompt.js";
 import { getChallengeModePreference, setChallengeModePreference } from "./game/challengeMode.js";
@@ -27,6 +28,11 @@ const difficultyNameDisplay = document.getElementById("difficulty-name");
 const difficultyDescription = document.getElementById("difficulty-description");
 const body = document.body;
 const pageLoader = document.getElementById("page-loader");
+const mainScreenVisualElement = document.querySelector("[data-main-screen-visual]");
+
+if (mainScreenVisualElement) {
+  mainScreenVisualElement.src = mainScreenVisual;
+}
 
 const initialTitle = titleText?.textContent?.trim() || "SKETCHYBOOK2";
 let backgroundLoaded = false;
