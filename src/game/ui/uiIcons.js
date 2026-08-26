@@ -70,83 +70,78 @@ export function createActionIconCanvas(
   ctx.fillStyle = fill;
   ctx.lineWidth = strokeWidth;
 
+  const roughCanvas = rough.canvas(canvas);
+  const roughOptions = {
+    stroke,
+    strokeWidth,
+    roughness: 1.5,
+    bowing: 1.1,
+  };
+
   if (type === "exit") {
-    ctx.beginPath();
-    ctx.moveTo(18, 34);
-    ctx.lineTo(18, 6);
-    ctx.lineTo(38, 6);
-    ctx.lineTo(38, 34);
-    ctx.stroke();
-
-    ctx.moveTo(50, 20);
-    ctx.lineTo(24, 20);
-
-    ctx.moveTo(23, 21);
-    ctx.lineTo(30, 14);
-
-    ctx.moveTo(23, 19);
-    ctx.lineTo(30, 26);
-    ctx.stroke();
+    roughCanvas.rectangle(18, 6, 20, 28, roughOptions);
+    roughCanvas.line(50, 20, 24, 20, roughOptions);
+    roughCanvas.line(24, 20, 31, 14, roughOptions);
+    roughCanvas.line(24, 20, 31, 26, roughOptions);
   } else if (type === "settings") {
-    ctx.beginPath();
-    ctx.moveTo(26, 18);
-    ctx.lineTo(26, 14);
-    ctx.lineTo(34, 14);
-    ctx.lineTo(34, 18);
-    ctx.lineTo(38, 18);
-    ctx.lineTo(38, 21);
-    ctx.lineTo(42, 21);
-    ctx.lineTo(42, 27);
-    ctx.lineTo(38, 27);
-    ctx.lineTo(38, 30);
-    ctx.lineTo(34, 30);
-    ctx.lineTo(34, 34);
-    ctx.lineTo(26, 34);
-    ctx.lineTo(26, 30);
-    ctx.lineTo(22, 30);
-    ctx.lineTo(22, 27);
-    ctx.lineTo(18, 27);
-    ctx.lineTo(18, 21);
-    ctx.lineTo(22, 21);
-    ctx.lineTo(22, 18);
-    ctx.lineTo(26, 18);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(30, 24, 4, 0, 2 * Math.PI);
-    ctx.stroke();
+    roughCanvas.polygon(
+      [
+        [26, 14],
+        [34, 14],
+        [34, 18],
+        [38, 18],
+        [38, 21],
+        [42, 21],
+        [42, 27],
+        [38, 27],
+        [38, 30],
+        [34, 30],
+        [34, 34],
+        [26, 34],
+        [26, 30],
+        [22, 30],
+        [22, 27],
+        [18, 27],
+        [18, 21],
+        [22, 21],
+        [22, 18],
+        [26, 18],
+      ],
+      roughOptions
+    );
+    roughCanvas.circle(30, 24, 8, roughOptions);
   } else if (type === "retry") {
-    ctx.beginPath();
-    ctx.moveTo(22, 30);
-    ctx.lineTo(42, 30);
-    ctx.lineTo(42, 10);
-    ctx.lineTo(22, 10);
-    ctx.lineTo(22, 20);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(16, 14);
-    ctx.lineTo(22, 20);
-    ctx.lineTo(28, 14);
-    ctx.stroke();
+    roughCanvas.line(42, 30, 22, 30, roughOptions);
+    roughCanvas.line(22, 30, 22, 10, roughOptions);
+    roughCanvas.line(22, 10, 42, 10, roughOptions);
+    roughCanvas.line(42, 10, 42, 20, roughOptions);
+    roughCanvas.line(42, 20, 35, 14, roughOptions);
+    roughCanvas.line(42, 20, 49, 14, roughOptions);
+  } else if (type === "difficulty-next" || type === "difficulty-prev") {
+    const direction = type === "difficulty-next" ? 1 : -1;
+    const outerX = direction === 1 ? 12 : w - 12;
+    const tipX = direction === 1 ? w - 12 : 12;
+    const arrowY = h / 2;
+    roughCanvas.line(outerX, arrowY - 8, tipX, arrowY, roughOptions);
+    roughCanvas.line(tipX, arrowY, outerX, arrowY + 8, roughOptions);
   } else if (type === "next") {
-    ctx.beginPath();
-    ctx.moveTo(18, 8);
-    ctx.lineTo(18, 32);
-    ctx.lineTo(46, 20);
-    ctx.closePath();
-    ctx.fill();
+    roughCanvas.polygon(
+      [
+        [18, 8],
+        [18, 32],
+        [46, 20],
+      ],
+      { ...roughOptions, fill, fillStyle: "solid" }
+    );
   } else if (type === "prev") {
-    ctx.save();
-    ctx.translate(w, 0);
-    ctx.scale(-1, 1);
-    ctx.beginPath();
-    ctx.moveTo(18, 8);
-    ctx.lineTo(18, 32);
-    ctx.lineTo(46, 20);
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
+    roughCanvas.polygon(
+      [
+        [w - 18, 8],
+        [w - 18, 32],
+        [w - 46, 20],
+      ],
+      { ...roughOptions, fill, fillStyle: "solid" }
+    );
   }
 
   return canvas;

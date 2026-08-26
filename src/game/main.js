@@ -356,7 +356,7 @@ stageButtons.forEach((card) => {
 });
 
 stagePageButtons.forEach((button) => {
-  const type = button.dataset.stagePage === "prev" ? "prev" : "next";
+  const type = button.dataset.stagePage === "prev" ? "difficulty-prev" : "difficulty-next";
   button.appendChild(createActionIconCanvas(type, { w: 48, h: 40, strokeWidth: 2.8 }));
 });
 

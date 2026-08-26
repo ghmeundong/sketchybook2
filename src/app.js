@@ -31,6 +31,15 @@ const body = document.body;
 const pageLoader = document.getElementById("page-loader");
 const startScreen = document.querySelector(".start-screen");
 
+[
+  [difficultyPrevBtn, "difficulty-prev"],
+  [difficultyNextBtn, "difficulty-next"],
+].forEach(([button, type]) => {
+  if (!button) return;
+  button.textContent = "";
+  button.appendChild(createActionIconCanvas(type, { w: 40, h: 32, strokeWidth: 2.4 }));
+});
+
 if (startScreen) {
   startScreen.style.setProperty("--main-screen-image", `url(${mainScreenVisual})`);
 }
