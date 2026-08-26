@@ -1,4 +1,4 @@
-name = "sketchybook-backend"
+name = "sketchybook2-backend"
 main = "src/index.js"
 compatibility_date = "2026-01-01"
 compatibility_flags = ["nodejs_compat"]
@@ -6,7 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 account_id = "6657ba2c0937d03cbb1faff70a262649"
 
 [vars]
-GOOGLE_CLIENT_ID = "529097378346-95i01gu1nmv8qcfrf459j0taep3t7vm6.apps.googleusercontent.com"
+GOOGLE_CLIENT_ID = "429444771801-kp06n87vmnc8a9q3lrgaq6ssb0lumcoi.apps.googleusercontent.com"
 
 [build]
 command = "npm install"
@@ -16,8 +16,8 @@ command = "npm install"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "sketchybook"
-database_id = "eb3ca5e0-1ee4-48b9-861a-334532158296"
+database_name = "sketchybook2"
+database_id = "0645a0f9-2208-46d3-a720-daa37365ebb2"
 
 # Local Google auth exchange may require a client secret.
 # Add it securely with wrangler secret put GOOGLE_CLIENT_SECRET if needed.

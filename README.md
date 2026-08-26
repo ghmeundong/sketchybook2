@@ -1,10 +1,12 @@
-# 🎮 Sketchybook
+# 🎮 Sketchybook2
 
-> A hand-drawn style puzzle game - Draw lines to guide the ball and collect stars!
+> The next chapter of Sketchybook: a larger, themed hand-drawn puzzle game.
 
-## Version 1
+## Version 2
 
-Sketchybook V1 is complete through Stage 18. Future major design changes and stage expansion will be developed separately in Sketchybook2.
+Sketchybook2 preserves the complete V1 Git history while providing a separate workspace for a new design and expanded stage collection.
+
+V2 will be developed around themed chapters, interlude stages, and more than 50 stages. The V1 release remains available at the `v1.0.0` tag.
 
 ## 🎯 Game Concept
 
@@ -183,4 +185,4 @@ Bug reports and feature suggestions are always welcome!
 
 ---
 
-**Play the Game**: [🎮 Play Sketchybook](https://github.io/sketchybook/)
+**Play the Game**: [🎮 Play Sketchybook2](https://ghmeundong.github.io/sketchybook2/)
