@@ -597,25 +597,25 @@
 
 .stage-card:nth-child(3n + 1) {
   font-variation-settings:
-    "BNCE" 30,
-    "INFM" 48,
-    "SPAC" -1,
+    "BNCE" 18,
+    "INFM" 38,
+    "SPAC" -3,
     "wght" 650;
 }
 
 .stage-card:nth-child(3n + 2) {
   font-variation-settings:
-    "BNCE" 48,
-    "INFM" 58,
-    "SPAC" 1,
+    "BNCE" 55,
+    "INFM" 68,
+    "SPAC" 2,
     "wght" 650;
 }
 
 .stage-card:nth-child(3n) {
   font-variation-settings:
-    "BNCE" 62,
-    "INFM" 64,
-    "SPAC" 0,
+    "BNCE" 82,
+    "INFM" 88,
+    "SPAC" 4,
     "wght" 650;
 }
 

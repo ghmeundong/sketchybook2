@@ -9,7 +9,7 @@ import { resolveCircleRadius, segmentIntersectsCircle, segmentIntersectsRect } f
 import { getStagePageIndexForStage } from "./stagePages.js";
 import { rescalePoint, rescalePoints } from "./resizeState.js";
 import { shouldDeferResize } from "./layoutSync.js";
-import { createActionIconSvg } from "./ui/uiIcons.js";
+import { createActionIconCanvas } from "./ui/uiIcons.js";
 import {
   createStageClearOverlay as createStageClearOverlayUI,
   showStageClearOverlay as showStageClearOverlayUI,
@@ -357,11 +357,11 @@ stageButtons.forEach((card) => {
 
 stagePageButtons.forEach((button) => {
   const type = button.dataset.stagePage === "prev" ? "difficulty-prev" : "difficulty-next";
-  button.appendChild(createActionIconSvg(type, { w: 48, h: 40, strokeWidth: 2.8 }));
+  button.appendChild(createActionIconCanvas(type, { w: 48, h: 40, strokeWidth: 2.8 }));
 });
 
 if (backHomeButton) {
-  backHomeButton.appendChild(createActionIconSvg("exit", { w: 60, h: 48, strokeWidth: 2.5 }));
+  backHomeButton.appendChild(createActionIconCanvas("exit", { w: 60, h: 48, strokeWidth: 2.5 }));
   backHomeButton.addEventListener("click", () => {
     setActivePage(startPage);
     window.dispatchEvent(new Event("sketchybook:show-start"));
@@ -369,7 +369,9 @@ if (backHomeButton) {
 }
 
 if (levelBackHomeButton) {
-  levelBackHomeButton.appendChild(createActionIconSvg("exit", { w: 60, h: 48, strokeWidth: 2.5 }));
+  levelBackHomeButton.appendChild(
+    createActionIconCanvas("exit", { w: 60, h: 48, strokeWidth: 2.5 })
+  );
   levelBackHomeButton.addEventListener("click", () => {
     setActivePage(startPage);
     window.dispatchEvent(new Event("sketchybook:show-start"));
@@ -592,7 +594,7 @@ function createGameExitButton() {
   gameExitButton.style.alignItems = "center";
   gameExitButton.style.justifyContent = "center";
 
-  gameExitButton.appendChild(createActionIconSvg("exit", { w: 60, h: 48, strokeWidth: 2.5 }));
+  gameExitButton.appendChild(createActionIconCanvas("exit", { w: 60, h: 48, strokeWidth: 2.5 }));
   gameExitButton.addEventListener("click", async () => {
     hideStageClearOverlay();
     setActivePage(selectionPage);
@@ -621,7 +623,7 @@ function createGameRetryButton() {
   gameRetryButton.style.alignItems = "center";
   gameRetryButton.style.justifyContent = "center";
 
-  gameRetryButton.appendChild(createActionIconSvg("retry", { w: 60, h: 48, strokeWidth: 2.5 }));
+  gameRetryButton.appendChild(createActionIconCanvas("retry", { w: 60, h: 48, strokeWidth: 2.5 }));
   gameRetryButton.addEventListener("click", async () => {
     hideStageClearOverlay();
     await initializeStage(currentStageNumber);

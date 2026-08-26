@@ -1,6 +1,6 @@
 import rough from "roughjs";
 import paperTexture from "../../img/paper-texture.webp";
-import { createActionIconSvg, createRoughStarCanvas } from "./uiIcons.js";
+import { createActionIconCanvas, createRoughStarCanvas } from "./uiIcons.js";
 import { getStageStarRating } from "../stageScoring.js";
 import {
   saveStageScore,
@@ -71,7 +71,7 @@ export function createStageClearOverlay({
     if (!btn) return;
     const iconWrap = document.createElement("span");
     iconWrap.className = "stage-clear-icon";
-    iconWrap.appendChild(createActionIconSvg(type));
+    iconWrap.appendChild(createActionIconCanvas(type));
     btn.insertBefore(iconWrap, btn.firstChild);
   };
 
@@ -233,7 +233,7 @@ export function createGameButton({ board, className, label, iconType, position, 
   button.style.alignItems = "center";
   button.style.justifyContent = "center";
 
-  button.appendChild(createActionIconSvg(iconType, { w: 60, h: 48, strokeWidth: 2.5 }));
+  button.appendChild(createActionIconCanvas(iconType, { w: 60, h: 48, strokeWidth: 2.5 }));
   button.addEventListener("click", onClick);
   board.appendChild(button);
   return button;

@@ -47,8 +47,8 @@ body {
   font-size: 1rem;
   font-family: "Shantell Sans", cursive;
   font-variation-settings:
-    "BNCE" 35,
-    "INFM" 45,
+    "BNCE" 50,
+    "INFM" 60,
     "SPAC" 0,
     "wght" 400;
   color: #3c2f1f;
@@ -77,9 +77,9 @@ h1,
 h2,
 h3 {
   font-variation-settings:
-    "BNCE" 45,
-    "INFM" 55,
-    "SPAC" 0,
+    "BNCE" 65,
+    "INFM" 72,
+    "SPAC" 1,
     "wght" 650;
 }
 
