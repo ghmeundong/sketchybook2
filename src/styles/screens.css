@@ -748,7 +748,12 @@
 }
 
 .difficulty-description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 0.15rem;
+  width: min(100%, 28rem);
+  min-height: 2.85rem;
   max-width: clamp(20rem, 36vw, 28rem);
   font-size: clamp(0.72rem, 0.86vw, 0.95rem);
   line-height: 1.5;
@@ -856,6 +861,7 @@
   }
 
   .difficulty-description {
+    min-height: 2.4rem;
     font-size: clamp(0.6rem, 1vw, 0.75rem);
   }
 

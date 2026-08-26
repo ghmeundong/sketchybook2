@@ -4,7 +4,7 @@ import "./game/main.js";
 import rough from "roughjs";
 import { syncProgressToServerOnLogin, getIdToken } from "./auth.js";
 import { buildApiUrl } from "./services/api.js";
-import { createActionIconSvg } from "./game/ui/uiIcons.js";
+import { createActionIconCanvas } from "./game/ui/uiIcons.js";
 
 /* global google */
 window.addEventListener("load", () => {
@@ -62,7 +62,7 @@ function showSignedIn(user) {
   signOutBtn.style.alignItems = "center";
   signOutBtn.style.justifyContent = "center";
   signOutBtn.style.opacity = "0.7";
-  signOutBtn.appendChild(createActionIconSvg("exit", { w: 52, h: 36, strokeWidth: 2.2 }));
+  signOutBtn.appendChild(createActionIconCanvas("exit", { w: 52, h: 36, strokeWidth: 2.2 }));
   signOutBtn.addEventListener("click", () => {
     localStorage.removeItem("sketchy_user");
     renderSignInButton();
