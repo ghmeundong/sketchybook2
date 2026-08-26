@@ -201,6 +201,48 @@ function updateStageSelectionPage() {
   });
 }
 
+function getVisibleStageButtons() {
+  return stageButtons.filter(
+    (button) => !button.classList.contains("is-hidden") && !button.disabled
+  );
+}
+
+function focusFirstVisibleStage() {
+  getVisibleStageButtons()[0]?.focus();
+}
+
+function handleStageKeyboardNavigation(event) {
+  if (!selectionPage?.classList.contains("is-active")) {
+    return;
+  }
+
+  const visibleButtons = getVisibleStageButtons();
+  if (!visibleButtons.length) {
+    return;
+  }
+
+  const focusedIndex = visibleButtons.indexOf(document.activeElement);
+  if (focusedIndex < 0) {
+    if (event.key.startsWith("Arrow")) {
+      event.preventDefault();
+      focusFirstVisibleStage();
+    }
+    return;
+  }
+
+  const columnCount = 3;
+  let nextIndex = focusedIndex;
+  if (event.key === "ArrowLeft") nextIndex -= 1;
+  if (event.key === "ArrowRight") nextIndex += 1;
+  if (event.key === "ArrowUp") nextIndex -= columnCount;
+  if (event.key === "ArrowDown") nextIndex += columnCount;
+
+  if (nextIndex !== focusedIndex && nextIndex >= 0 && nextIndex < visibleButtons.length) {
+    event.preventDefault();
+    visibleButtons[nextIndex].focus();
+  }
+}
+
 function segmentsCross(first, second) {
   const orientation = (a, b, c) => (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
   const firstSide = orientation(first.a, first.b, second.a);
@@ -340,12 +382,14 @@ if (levelContinueButton) {
   levelContinueButton.addEventListener("click", () => {
     setActivePage(selectionPage);
     updateStageSelectionPage();
+    focusFirstVisibleStage();
   });
 }
 
 window.addEventListener("sketchybook:level-confirmed", () => {
   setActivePage(selectionPage);
   updateStageSelectionPage();
+  focusFirstVisibleStage();
 });
 
 refreshStageSelectionButtons();
@@ -632,6 +676,7 @@ window.addEventListener("sketchybook:start-game", async (event) => {
   await tryEnterFullscreen();
   setActivePage(levelSelectionPage);
   updateStageSelectionPage();
+  levelContinueButton?.focus();
 });
 
 async function initializePageFlow() {
@@ -2105,11 +2150,13 @@ window.addEventListener("keydown", async (event) => {
     resizeCanvas();
   }
 
-  if (event.key === " " || event.code === "Space") {
+  if (isGameActive && (event.key === " " || event.code === "Space")) {
     event.preventDefault();
     launchBallFromInput(event.repeat);
   }
 });
+
+window.addEventListener("keydown", handleStageKeyboardNavigation);
 
 board?.addEventListener("contextmenu", (event) => {
   event.preventDefault();

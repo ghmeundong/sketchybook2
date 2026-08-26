@@ -486,3 +486,38 @@ if (levelContinueButton) {
     showInsaneStartWarningModal();
   });
 }
+
+document.addEventListener("keydown", (event) => {
+  const levelPage = document.querySelector(".page-level-selection");
+  const isLevelPageActive = levelPage?.classList.contains("is-active");
+  const activeElement = document.activeElement;
+  const isInteractiveElement = activeElement?.matches("button, input, select, textarea, a");
+
+  if (isLevelPageActive && (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
+    event.preventDefault();
+    changeDifficulty(
+      event.key === "ArrowLeft"
+        ? getPreviousDifficulty(selectedDifficulty)
+        : getNextDifficulty(selectedDifficulty)
+    );
+    updateChallengeModeAvailability();
+    return;
+  }
+
+  if (event.key !== "Enter" && event.key !== " " && event.code !== "Space") {
+    return;
+  }
+
+  if (isInteractiveElement) {
+    return;
+  }
+
+  const startPage = document.querySelector(".page-start");
+  if (startPage?.classList.contains("is-active")) {
+    event.preventDefault();
+    startTitle?.click();
+  } else if (isLevelPageActive) {
+    event.preventDefault();
+    levelContinueButton?.click();
+  }
+});

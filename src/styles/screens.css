@@ -262,6 +262,10 @@
   margin-top: clamp(1rem, 2.5vh, 1.75rem);
 }
 
+.level-selection-continue:focus {
+  outline: none;
+}
+
 .settings-panel-title {
   margin: 0;
   font-size: 0.95rem;
@@ -577,8 +581,10 @@
   color: #4f3b24;
 }
 
-.stage-card:hover {
-  transform: translateY(-2px) rotate(-1deg);
+.stage-card:hover,
+.stage-card:focus {
+  transform: translateY(-4px) rotate(-2deg) scale(1.02);
+  outline: none;
 }
 
 .stage-card.is-disabled,
